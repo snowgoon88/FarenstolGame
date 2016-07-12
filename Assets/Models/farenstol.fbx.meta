@@ -1,17 +1,15 @@
 fileFormatVersion: 2
-guid: 16c930617b18e66429da50d7d39791d3
-timeCreated: 1468177282
+guid: 6db5f99f8c0e74f6ba7e789e5162ac07
+timeCreated: 1468316659
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: default
-    100002: //RootNode
-    400000: default
-    400002: //RootNode
-    2300000: default
-    3300000: default
-    4300000: default
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Arrow_ArrrowMesh
   materials:
     importMaterials: 1
     materialName: 0
@@ -19,7 +17,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
