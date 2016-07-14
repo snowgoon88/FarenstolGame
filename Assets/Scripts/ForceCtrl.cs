@@ -23,13 +23,10 @@ public class ForceCtrl : MonoBehaviour {
 
         Vector3 move = new Vector3( h_move, 0, v_move );
         _rbody.AddForce( move, ForceMode.Force );
-        if( move.magnitude > 0 ) {
-            Debug.Log( Time.realtimeSinceStartup+"=>Apply force "+move );
-        }
+        //if( move.magnitude > 0 ) {
+        //    Debug.Log( Time.realtimeSinceStartup+"=>Apply force "+move );
+        //}
 
-        UnityEditor.Handles.color = Color.white;
-        UnityEditor.Handles.ArrowCap( 0, _rbody.position, 
-            Quaternion.LookRotation(_rbody.velocity), 
-            _rbody.velocity.magnitude);
+        
     }
 }
