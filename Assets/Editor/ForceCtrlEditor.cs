@@ -19,14 +19,14 @@ public class ForceCtrlEditor : Editor {
 
 	void OnSceneGUI()
     {
-        // velocity
+        // velocity in White
         if( _rbody.velocity.magnitude > 0.1 ) {
             Handles.color = Color.white;
             Handles.ArrowCap( 0, _rbody.position,
                 Quaternion.LookRotation( _rbody.velocity ),
                 _rbody.velocity.magnitude );
         }
-        // desired velocity
+        // desired velocity in Red
         Vector3 _desiredVelocity = _myCtrl.DesiredVelocity;
         if( _desiredVelocity.magnitude > 0.1 ) {
             Handles.color = Color.red;

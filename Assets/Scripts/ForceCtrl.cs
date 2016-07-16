@@ -22,12 +22,20 @@ public class ForceCtrl : MonoBehaviour {
     void Start () {
         _rbody = GetComponent<Rigidbody>();
         _rbody.interpolation = RigidbodyInterpolation.Interpolate;
+        // rotation is not controlled by Physics
+        _rbody.freezeRotation = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Quaternion newRotation = Quaternion.LookRotation( _rbody.velocity);
-        _rbody.MoveRotation( newRotation );
+        if( _rbody.velocity.magnitude > 0.05 ) {
+            Quaternion newRotation = Quaternion.LookRotation( _rbody.velocity );
+            _rbody.MoveRotation( newRotation );
+        }
+        else if( DesiredVelocity.magnitude > 0.05 ) {
+            Quaternion newRotation = Quaternion.LookRotation( DesiredVelocity );
+            _rbody.MoveRotation( newRotation );
+        }
     }
 
     // Physics Update
