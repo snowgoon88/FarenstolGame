@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ForceCtrl : MonoBehaviour {
 
@@ -12,10 +13,7 @@ public class ForceCtrl : MonoBehaviour {
 
     public Vector3 DesiredVelocity
     {
-        get
-        {
-            return _desiredVelocity;
-        }
+        get{return _desiredVelocity;}
     }
 
     // Use this for initialization
@@ -27,6 +25,9 @@ public class ForceCtrl : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+    /**
+     * Agent orients toward its velocity or, if zero, towards its desired velocity
+     */
 	void Update () {
         if( _rbody.velocity.magnitude > 0.05 ) {
             Quaternion newRotation = Quaternion.LookRotation( _rbody.velocity );
@@ -67,5 +68,46 @@ public class ForceCtrl : MonoBehaviour {
         Vector3 force = _desiredVelocity - _rbody.velocity;
 
         return force;
+    }
+
+    /**
+     * When collide with something.
+     */
+    // void OnCollisionEnter( Collision collision )
+    //{
+    //    Debug.Log( "Collision with "+collision.collider.name );
+    //    // with a wall
+    //    if( collision.collider.CompareTag( "WallTag" )) {
+    //        string logMsg = "Hit house relvel="+collision.relativeVelocity+Environment.NewLine;
+    //        logMsg +=       "          impuls="+collision.impulse+Environment.NewLine;
+    //        logMsg +=       "          desVel="+_desiredVelocity;
+    //        Debug.Log( logMsg );
+    //        // Take normal of first contact
+    //        var normal = collision.contacts[0].normal;
+    //        var tangentForce = _desiredVelocity - Vector3.Dot( -_desiredVelocity, normal ) * normal;
+    //        _rbody.AddForce( tangentForce );
+    //    }
+    //}
+    void OnCollisionStay( Collision collision )
+    {
+        //foreach( ContactPoint contact in collision.contacts ) {
+        //    print( contact.thisCollider.name + " hit " + contact.otherCollider.name );
+        //    Debug.DrawRay( contact.point, contact.normal, Color.white );
+        //}
+        Debug.Log( "Collision with "+collision.collider.name );
+        // with a wall
+        if( collision.collider.CompareTag( "WallTag" ) ) {
+            string logMsg = "Hit house relvel="+collision.relativeVelocity+Environment.NewLine;
+            logMsg +=       "          impuls="+collision.impulse+Environment.NewLine;
+            logMsg +=       "          desVel="+_desiredVelocity;
+            Debug.Log( logMsg );
+            // Take normal of first contact
+            var normal = collision.contacts[0].normal;
+            var tangentForce = _desiredVelocity + Vector3.Dot( -_desiredVelocity, normal ) * normal;
+            _rbody.AddForce( tangentForce );
+            Debug.DrawLine( _rbody.transform.position, _rbody.transform.position+DesiredVelocity, Color.red );
+            Debug.DrawLine( _rbody.transform.position, _rbody.transform.position+tangentForce, Color.white );
+            Debug.DrawLine( _rbody.transform.position, _rbody.transform.position+normal, Color.yellow );
+        }
     }
 }
